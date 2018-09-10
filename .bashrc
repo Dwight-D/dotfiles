@@ -4,6 +4,10 @@
 
 [[ $- != *i* ]] && return
 
+# Set up SSH-agent for ssh-key persistence (slows startup)
+#eval $(keychain --eval --quiet --agents ssh id_rsa)>/dev/null
+
+
 colors() {
 	local fgc bgc vals seq0
 
@@ -72,7 +76,7 @@ if ${use_color} ; then
 	if [[ ${EUID} == 0 ]] ; then
 		PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
 	else
-		PS1='\[\033[01;32m\]\u - \[\033[01;37m\] \W\[\033[01;32m\]\n>\[\033[00m\] '
+		PS1='\[\033[01;32m\]\u \[\033[01;30m\]- \[\033[01;37m\] \W\n\[\033[01;32m\]>\[\033[00m\] '
 	fi
 
 	alias ls='ls --color=auto'
@@ -90,6 +94,14 @@ fi
 
 unset use_color safe_term match_lhs sh
 
+
+
+
+
+##############################################################################
+#
+#               =======================ALIAS================
+
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
@@ -97,6 +109,8 @@ alias np='nano -w PKGBUILD'
 alias more=less
 alias ll='ls -l'
 alias la='ls -la'
+alias rr='ranger'
+alias issh='. initssh.sh'
 
 xhost +local:root > /dev/null 2>&1
 
