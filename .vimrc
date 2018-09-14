@@ -10,7 +10,7 @@ runtime! archlinux.vim
 let mapleader=" "
 
 "refresh config = meta + s
-map <leader>s :source ~/dotfiles/vim/vimrc<CR>
+map <leader>s :source ~/.vimrc<CR>
 
 "=============================
 
@@ -24,5 +24,5 @@ set nowrap
 set smartindent
 set autoindent
 set clipboard=unnamedplus
-
+set mouse=a
 

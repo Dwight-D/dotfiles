@@ -46,8 +46,7 @@ URxvt.cursorUnderline:            true
 
 ! Window draw settings
 URxvt*scrollBar:                  false
-URxvt*mouseWheelScrollPage:       false
-URxvt*cursorBlink:                true
+URxvt*mouseWheelScrollPage:       true
 URxvt*foreground:                 white
 URxvt*saveLines:                  5000
 URxvt.internalBorder:             14
