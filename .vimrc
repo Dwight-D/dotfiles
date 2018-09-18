@@ -25,4 +25,5 @@ set smartindent
 set autoindent
 set clipboard=unnamedplus
 set mouse=a
-
+set expandtab
+set tabstop=4

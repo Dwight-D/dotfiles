@@ -357,24 +357,24 @@ exec --no-startup-id autocutsel
 # to:
 # background $term_background
 # Same logic applied to everything else.
-#set_from_resource $term_background background
-#set_from_resource $term_foreground foreground
-#set_from_resource $term_color0     color0
-#set_from_resource $term_color1     color1
-#set_from_resource $term_color2     color2
-#set_from_resource $term_color3     color3
-#set_from_resource $term_color4     color4
-#set_from_resource $term_color5     color5
-#set_from_resource $term_color6     color6
-#set_from_resource $term_color7     color7
-#set_from_resource $term_color8     color8
-#set_from_resource $term_color9     color9
-#set_from_resource $term_color10    color10
-#set_from_resource $term_color11    color11
-#set_from_resource $term_color12    color12
-#set_from_resource $term_color13    color13
-#set_from_resource $term_color14    color14
-#set_from_resource $term_color15    color15
+set_from_resource $term_background background
+set_from_resource $term_foreground foreground
+set_from_resource $term_color0     col0
+set_from_resource $term_color1     col1
+set_from_resource $term_color2     col2
+set_from_resource $term_color3     col3
+set_from_resource $term_color4     col4
+set_from_resource $term_color5     col5
+set_from_resource $term_color6     col6
+set_from_resource $term_color7     col7
+set_from_resource $term_color8     col8
+set_from_resource $term_color9     col9
+set_from_resource $term_color10    col10
+set_from_resource $term_color11    col11
+set_from_resource $term_color12    col12
+set_from_resource $term_color13    col13
+set_from_resource $term_color14    col14
+set_from_resource $term_color15    col15
 
 
 ###########
@@ -396,18 +396,18 @@ set_from_resource        $fg-alt       i3wm.color2      #00ff00
 set_from_resource        $hl           i3wm.color13     #0000ff
 
 # class                 border      backgr. text indicator      child_border
-client.focused          $fg-alt     $bg     $hl  $fg-alt        $hl
-client.focused_inactive $fg-alt     $bg     $fg  $fg-alt        $fg-alt
-client.unfocused        $fg-alt     $bg     $fg  $fg-alt        $fg-alt
-client.urgent           $fg-alt     $bg     $fg  $fg-alt        $fg-alt
-client.placeholder      $fg-alt     $bg     $fg  $fg-alt        $fg-alt
+client.focused          $fg-alt     $bg     $hl  $col7        $bg-alt
+client.focused_inactive $fg-alt     $bg     $fg  $col7        $fg-alt
+client.unfocused        $fg-alt     $bg     $fg  $col7        $fg-alt
+client.urgent           $fg-alt     $bg     $fg  $col7        $fg-alt
+client.placeholder      $fg-alt     $bg     $fg  $col7        $fg-alt
 
 client.background       $bg
 
 
-#################
+################################################################################################
 #
-#       i3 BAR
+#    				~~~~~~~~~~~~~~~~i3 BAR~~~~~~~~~~~~~~~~~~~
 #
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
@@ -429,12 +429,15 @@ bar {
         statusline $fg
         separator  $fg-alt
 
-#                      border  backgr. text
-        focused_workspace  #F9FAF9 #16a085 #292F34
-        active_workspace   #595B5B #353836 #FDF6E3
-        inactive_workspace #595B5B #222D31 #EEE8D5
-        binding_mode       #16a085 #2C2C2C #F9FAF9
-        urgent_workspace   #16a085 #FDF6E3 #E5201D
+#       	                border	backgr. text
+        #focused_workspace	#F9FAF9 #16a085 #292F34
+        focused_workspace	$fg-alt	$fg	$bg
+        active_workspace   	$fg-alt $bg-alt $fg-alt
+	#active_workspace   	#595B5B #353836 #FDF6E3
+        #inactive_workspace 	#595B5B #222D31 #EEE8D5
+        inactive_workspace 	$col0	$bg 	$col1
+        binding_mode       	#16a085 #2C2C2C #F9FAF9
+        urgent_workspace   	#16a085 #FDF6E3 #E5201D
     }
 }
 
