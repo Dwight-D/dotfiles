@@ -75,6 +75,7 @@ bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 bindsym $mod+Return exec $trm
+bindsym $mod+Delete exec $trm -e "/home/max/scripts/choke.sh"
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -214,7 +215,7 @@ bindsym $mod+9 exec --no-startup-id blurlock
 #                 set $ws2 2:
 set $ws1 1:home
 set $ws2 2:web
-set $ws3 3:code
+set $ws3 3:work
 set $ws4 4:system
 set $ws5 5
 set $ws6 6

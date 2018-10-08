@@ -2,6 +2,8 @@
 # ~/.bashrc
 #
 
+source ~/dotfiles/aliases
+
 [[ $- != *i* ]] && return
 
  # List of color variables that bash can use
@@ -23,9 +25,8 @@
      COL15="\[\033[1;37m\]"   
 
      COL_RESET="\[\033[0m\]"      # Color reset
-#
-#
 
+#Use smart completion (not currently installed)
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
 
 # Change the window title of X terminals
@@ -90,28 +91,6 @@ fi
 
 unset use_color safe_term match_lhs sh
 
-
-
-
-
-##############################################################################
-#
-#               =======================ALIAS================
-
-alias cp="cp -i"                          # confirm before overwriting something
-alias df='df -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
-alias np='nano -w PKGBUILD'
-alias more=less
-alias ll='ls -l'
-alias la='ls -la'
-alias rr='ranger'
-alias issh='. initssh.sh'
-alias fuck='sudo $(history -p !!)'
-if [ -x "$(command -v colorsvn)" ]; then
-        alias svn='colorsvn'
-fi
-
 xhost +local:root > /dev/null 2>&1
 
 complete -cf sudo
@@ -120,6 +99,15 @@ complete -cf sudo
 # Enable checkwinsize so that bash will check the terminal size when
 # it regains control.  #65623
 # http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
+
+
+#========================================================#
+#                                                        #
+#                   BASH OPTIONS                         #
+#                                                        #
+#========================================================#
+
+
 shopt -s checkwinsize
 
 shopt -s expand_aliases
@@ -129,21 +117,68 @@ shopt -s expand_aliases
 # Enable history appending instead of overwriting.  #139609
 shopt -s histappend
 
-#
+#Ignore case for autocomplete
+bind "set completion-ignore-case on"
+
+#Show suggestions on first tab
+bind "set show-all-if-ambiguous on"
+
+#Add trailing slash to symlink expansion
+bind "set mark-symlinked-directories on"
+
+#Enable arrow navigation in cmd history
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+bind '"\e[C": forward-char'
+bind '"\e[D": backward-char'
+
+# Avoid duplicate entries
+HISTCONTROL="erasedups:ignoreboth"
+
+# Don't record some commands
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:cd:history"
+
+# Huge history. Doesn't appear to slow things down, so why not?
+HISTSIZE=500000
+HISTFILESIZE=100000
+
+
+
+## BETTER DIRECTORY NAVIGATION ##
+
+# Prepend cd to directory names automatically
+shopt -s autocd 2> /dev/null
+# Correct spelling errors during tab-completion
+shopt -s dirspell 2> /dev/null
+# Correct spelling errors in arguments supplied to cd
+shopt -s cdspell 2> /dev/null
+
+#treats variable names as directory for cd
+shopt -s cdable_vars 2> /dev/null
+source /home/max/dotfiles/shortcuts
+
+# This defines where cd looks for targets
+# Add the directories you want to have fast access to, separated by colon
+#Look for targets in the current working directory, in home and in the ~/projects folder
+CDPATH=".:~:~/projects" 
+
+#=======================FUNCTIONS=========================
+
+
 # # ex - archive extractor
 # # usage: ex <file>
 ex ()
 {
   if [ -f $1 ] ; then
     case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
+      *.tar.bz2)   tar xvjf $1   ;;
+      *.tar.gz)    tar xvzf $1   ;;
       *.bz2)       bunzip2 $1   ;;
       *.rar)       unrar x $1     ;;
       *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
+      *.tar)       tar xvf $1    ;;
+      *.tbz2)      tar xvjf $1   ;;
+      *.tgz)       tar xvzf $1   ;;
       *.zip)       unzip $1     ;;
       *.Z)         uncompress $1;;
       *.7z)        7z x $1      ;;
@@ -153,9 +188,6 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
-
-# better yaourt colors
-export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1;41;5:votes=1;44:dsc=0:other=1;35"
 
 # Import colorscheme from 'wal' asynchronously
 # &   # Run the process in the background.

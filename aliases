@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#========NAVIGATION==========
+alias xfiles="cd /mnt/xfiles"
+alias nodc="cd ~/projects/nodc/nodc-modules"
+
+
+#===========UTIL============
+alias cp="cp -i"                          # confirm before overwriting something
+alias df='df -h'                          # human-readable sizes
+alias free='free -m'                      # show sizes in MB
+
+#=======SHORTCUTS==========
+alias issh='initssh.sh'
+alias fuck='sudo $(history -p !!)'
+alias la='ls -lah'
+alias ll='ls -lh'
+alias rr='ranger'
+alias makeover='wal -i /home/max/shared/wallpaper/rotation -a 75 --backend=colorz'
+alias choke='choke.sh'
+
+#========COLORS============
+if [ -x "$(command -v colorsvn)" ]; then
+    alias svn='colorsvn'
+fi
+
