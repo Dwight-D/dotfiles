@@ -160,6 +160,7 @@ source /home/max/dotfiles/shortcuts
 # This defines where cd looks for targets
 # Add the directories you want to have fast access to, separated by colon
 #Look for targets in the current working directory, in home and in the ~/projects folder
+#NB: Adds annoying path echo on cd, use with cd function to suppress
 CDPATH=".:~:~/projects" 
 
 #=======================FUNCTIONS=========================
@@ -187,6 +188,16 @@ ex ()
   else
     echo "'$1' is not a valid file"
   fi
+}
+
+#Override cd (suppress path echo)
+function cd() {
+    if [ -z "$*" ]; then 
+        destination=~
+    else
+        destination=$*
+    fi
+    builtin cd "${destination}" >/dev/null && ls
 }
 
 # Import colorscheme from 'wal' asynchronously
