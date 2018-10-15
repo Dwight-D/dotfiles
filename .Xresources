@@ -39,7 +39,7 @@ URxvt.cursorUnderline:            true
 URxvt*scrollBar:                  false
 URxvt*mouseWheelScrollPage:       true
 URxvt*foreground:                 white
-URxvt*saveLines:                  5000
+URxvt*saveLines:                  30000
 URxvt.internalBorder:             14
 !urxvt*background:                 grey 
 
@@ -62,9 +62,20 @@ URxvt.keysym.Control-Up:          \033[1;5A
 URxvt.keysym.Shift-Control-Up:    \033[1;6A
 URxvt.keysym.Control-Down:        \033[1;5B
 URxvt.keysym.Shift-Control-Down:  \033[1;6B
+
+
 ! Arrow scrolling
 URxvt.keysym.Shift-Up:            command:\033]720;1\007
 URxvt.keysym.Shift-Down:          command:\033]721;1\007
+
+
+URxvt*scrollTtyOutput:      false
+URxvt*scrollWithBuffer:     true
+URxvt*scrollTtyKeypress:    true
+
+
+
+
 ! Keyboard select
 URxvt.keysym.M-Escape:            perl:keyboard-select:activate
 URxvt.keysym.M-s:                 perl:keyboard-select:search

@@ -11,13 +11,13 @@ alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 
 #=======SHORTCUTS==========
-alias issh='initssh.sh'
+alias issh='initssh'
 alias fuck='sudo $(history -p !!)'
 alias la='ls -lah'
 alias ll='ls -lh'
 alias rr='ranger'
 alias makeover='wal -i /home/max/shared/wallpaper/rotation -a 75 --backend=colorz'
-alias choke='choke.sh'
+alias rss='canto-curses'
 
 #========COLORS============
 if [ -x "$(command -v colorsvn)" ]; then
