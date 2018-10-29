@@ -26,7 +26,7 @@ source ~/dotfiles/aliases
 
      COL_RESET="\[\033[0m\]"      # Color reset
 
-#Use smart completion (not currently installed)
+#Use smart completion
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
 
 # Change the window title of X terminals
@@ -206,4 +206,7 @@ function cd() {
 # &   # Run the process in the background.
 # ( ) # Hide shell job control messages.
 (cat ~/.cache/wal/sequences &)
+
+#keychain + ssh-agent
+eval $(keychain --eval --quiet --agents ssh id_rsa)>/dev/null
 

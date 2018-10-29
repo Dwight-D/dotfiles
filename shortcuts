@@ -7,3 +7,5 @@ export dots="/home/max/dotfiles"
 export proj="/home/max/projects"
 
 export nodc="/home/max/projects/nodc/nodc-modules"
+
+export nag="/home/max/projects/nag-parent/nag"

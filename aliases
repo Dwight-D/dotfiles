@@ -1,14 +1,28 @@
 #!/bin/bash
 
+#======PROGRAM REDIRECTS=====
+alias ssh='backpack'
+
 #========NAVIGATION==========
 alias xfiles="cd /mnt/xfiles"
 alias nodc="cd ~/projects/nodc/nodc-modules"
-
 
 #===========UTIL============
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
+alias tt='(urxvt &)'
+
+#Override cd (suppress path echo)
+function cd() {
+    if [ -z "$*" ]; then 
+        destination=~
+    else
+        destination=$*
+    fi
+    builtin cd "${destination}" >/dev/null && ls
+}
+
 
 #=======SHORTCUTS==========
 alias issh='initssh'
@@ -19,8 +33,27 @@ alias rr='ranger'
 alias makeover='wal -i /home/max/shared/wallpaper/rotation -a 75 --backend=colorz'
 alias rss='canto-curses'
 
-#========COLORS============
+#========SVN============
 if [ -x "$(command -v colorsvn)" ]; then
     alias svn='colorsvn'
 fi
+
+alias modlist="svn status | grep -E "^M" | sed 's/M       //'"
+alias addlist="svn status | grep -E "^A" | sed 's/A       //'"
+
+lsvn (){
+    if [ "$#" -eq 0 ]; then
+        svn status
+    else
+        while [ ! -z "$1" ]; do
+            local arg="${1^^}"
+            if [ "$arg" = ? ]; then
+                arg="\?"
+            fi
+            svn status | grep -E "^$arg" | sed "s/$arg       //"
+            shift
+         done
+
+    fi
+}
 
