@@ -13,16 +13,6 @@ alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias tt='(urxvt &)'
 
-#Override cd (suppress path echo)
-function cd() {
-    if [ -z "$*" ]; then 
-        destination=~
-    else
-        destination=$*
-    fi
-    builtin cd "${destination}" >/dev/null && ls
-}
-
 
 #=======SHORTCUTS==========
 alias issh='initssh'
@@ -32,14 +22,16 @@ alias ll='ls -lh'
 alias rr='ranger'
 alias makeover='wal -i /home/max/shared/wallpaper/rotation -a 75 --backend=colorz'
 alias rss='canto-curses'
+alias cgrep='grep --color=auto -C 5'
 
 #========SVN============
 if [ -x "$(command -v colorsvn)" ]; then
     alias svn='colorsvn'
 fi
 
-alias modlist="svn status | grep -E "^M" | sed 's/M       //'"
-alias addlist="svn status | grep -E "^A" | sed 's/A       //'"
+asvn(){
+    lsvn ? | sed 's/^/svn add /' | bash
+}
 
 lsvn (){
     if [ "$#" -eq 0 ]; then
@@ -55,5 +47,70 @@ lsvn (){
          done
 
     fi
+}
+
+
+# _____                 _   _                 
+#|  ___|   _ _ __   ___| |_(_) ___  _ __  ___ 
+#| |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+#|  _|| |_| | | | | (__| |_| | (_) | | | \__ \
+#|_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+
+note() {
+
+    if [ "$#" -lt 2 ]; then
+        echo "You forgot to specify a note"
+        return
+    else
+        local note="$NOTEPAD/$1"
+        if [ ! -f "$note" ]; then
+            echo "No such note"
+            return
+        fi
+        shift
+        echo "$@" >> $note
+    fi
+}
+
+notepad() {
+    local option="$1"
+    local note="$NOTEPAD/$2"
+    shift
+
+    case $option in
+        read )
+            tail -f $note
+            ;;
+        burn )
+            truncate -s 0 $note
+            ;;
+        trim )
+            tail -n 100 $note >| $note
+            ;;
+        list )
+            echo "Notes:"
+            for file in $NOTEPAD/*; do
+                echo -n "$(basename $file), "
+                echo $(wc -l $file | cut -d " " -f 1) lines
+            done
+            ;;
+        new )
+            echo "New note: $note"
+            touch $note
+            ;;
+        * )
+            echo "Bad instructions dummy"
+            ;;
+    esac
+}
+
+#Override cd (suppress path echo)
+function cd() {
+    if [ -z "$*" ]; then 
+        destination=~
+    else
+        destination=$*
+    fi
+    builtin cd "${destination}" >/dev/null && ls
 }
 
