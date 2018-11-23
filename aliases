@@ -20,7 +20,7 @@ alias fuck='sudo $(history -p !!)'
 alias la='ls -lah'
 alias ll='ls -lh'
 alias rr='ranger'
-alias makeover='wal -i /home/max/shared/wallpaper/rotation -a 75 --backend=colorz'
+alias makeover='wal -i /home/max/shared/wallpaper/dual -a 75 --backend=colorz'
 alias rss='canto-curses'
 alias cgrep='grep --color=auto -C 5'
 
@@ -31,6 +31,18 @@ fi
 
 asvn(){
     lsvn ? | sed 's/^/svn add /' | bash
+}
+
+rsvn(){
+    echo "Removing the following files:
+"
+    lsvn ! 
+    echo Are you sure? yes/no
+    read ans
+    if [[ "$ans" = "yes" || "$ans" = "Yes" ]]; then
+        echo Deleting...
+        lsvn ! | sed 's/^/svn rm /' | bash
+    fi
 }
 
 lsvn (){
@@ -50,11 +62,26 @@ lsvn (){
 }
 
 
-# _____                 _   _                 
-#|  ___|   _ _ __   ___| |_(_) ___  _ __  ___ 
-#| |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
-#|  _|| |_| | | | | (__| |_| | (_) | | | \__ \
-#|_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+#  _____                 _   _                 
+# |  ___|   _ _ __   ___| |_(_) ___  _ __  ___ 
+# | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+# |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
+# |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+
+cleanprompt() {
+    PS1="$COL1B\u $COL7 - $COL6B \w\n$COL1B>$COL2B "
+    PROMPT_COMMAND=""
+    echo "Good as new"
+}
+
+#  , _                                 
+# /|/ \                             |  
+#  |   |   __ _|_  _    _   __,   __|  
+#  |   |  /  \_|  |/  |/ \_/  |  /  |  
+#  |   |_/\__/ |_/|__/|__/ \_/|_/\_/|_/
+#                    /|                
+#                    \|      
+#=======================================
 
 note() {
 
@@ -103,6 +130,7 @@ notepad() {
             ;;
     esac
 }
+#============== NOTEPAD END =================
 
 #Override cd (suppress path echo)
 function cd() {

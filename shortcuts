@@ -10,6 +10,6 @@ export nodc="/home/max/projects/nodc/nodc-modules"
 
 export nag="/home/max/projects/nag-parent/nag"
 
-export nodsible="/home/max/projects/nodc/lfs/nodc/setup/ansible"
+export nodsible="/home/max/projects/nodc/ansible"
 
 export nagsible="/home/max/projects/nag-parent/nag/setup/ansible"
