@@ -64,7 +64,7 @@ floating_modifier $mod
 # change borders
 bindsym $mod+u border none
 bindsym $mod+y border pixel $border_width
-bindsym $mod+n border normal
+#bindsym $mod+n border normal
 
 # Start Applications
 bindsym $mod+Ctrl+b exec $trm -e 'bmenu'
@@ -72,7 +72,7 @@ bindsym $mod+F2 exec firefox
 bindsym $mod+F3 exec pcmanfm
 bindsym $mod+r exec $trm -e ranger "`xcwd`"
 bindsym $mod+p exec pcmanfm "`xcwd`"
-bindsym $mod+Shift+p exec gksu pcmanfm "`xcwd`"
+bindsym $mod+Shift+p exec xcwd | tr -d '\n' | xclip -selection c
 bindsym $mod+c exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+c exec --no-startup-id compton -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
@@ -120,7 +120,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # workspace back and forth (with/without active container)
-workspace_auto_back_and_forth yes
+workspace_auto_back_and_forth no
 bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
@@ -220,36 +220,42 @@ bindsym $mod+9 exec --no-startup-id blurlock
 #
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
-#                 set $ws2 2:
+#                 set $ws2 2:code
 set $ws1 1:home
-set $ws2 2:right
+set $ws2 2:left
 set $ws3 3:dev
-set $ws4 4:rmt
-set $ws5 5:sys
+set $ws4 4
+set $ws5 5
 set $ws6 6
 set $ws7 7
 set $ws8 8
-set $ws9 9
+set $ws9 9:web
+
+bindsym $mod+Shift+n exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
+bindsym $mod+n exec i3-input -F \
+'rename workspace to "'$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).num')':%s"' \
+-P 'Rename workspace to '$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).num')': '
+
 
 # switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
 
-bindsym $mod+Mod2+KP_1 workspace $ws1
-bindsym $mod+Mod2+KP_2 workspace $ws2
-bindsym $mod+Mod2+KP_3 workspace $ws3
-bindsym $mod+Mod2+KP_4 workspace $ws4
-bindsym $mod+Mod2+KP_5 workspace $ws5
-bindsym $mod+Mod2+KP_6 workspace $ws6
-bindsym $mod+Mod2+KP_7 workspace $ws7
-bindsym $mod+Mod2+KP_8 workspace $ws8
-bindsym $mod+Mod2+KP_9 workspace $ws9
+bindsym $mod+Mod2+KP_1 workspace number $ws1
+bindsym $mod+Mod2+KP_2 workspace number $ws2
+bindsym $mod+Mod2+KP_3 workspace number $ws3
+bindsym $mod+Mod2+KP_4 workspace number $ws4
+bindsym $mod+Mod2+KP_5 workspace number $ws5
+bindsym $mod+Mod2+KP_6 workspace number $ws6
+bindsym $mod+Mod2+KP_7 workspace number $ws7
+bindsym $mod+Mod2+KP_8 workspace number $ws8
+bindsym $mod+Mod2+KP_9 workspace number $ws9
 
 # Move focused container to workspace
 #bindsym $mod+Ctrl+1 move container to workspace $ws1
@@ -262,26 +268,26 @@ bindsym $mod+Mod2+KP_9 workspace $ws9
 #bindsym $mod+Ctrl+8 move container to workspace $ws8
 
 # Move to workspace with focused container
-bindsym $mod+Ctrl+1 move container to workspace $ws1; workspace $ws1
-bindsym $mod+Ctrl+2 move container to workspace $ws2; workspace $ws2
-bindsym $mod+Ctrl+3 move container to workspace $ws3; workspace $ws3
-bindsym $mod+Ctrl+4 move container to workspace $ws4; workspace $ws4
-bindsym $mod+Ctrl+5 move container to workspace $ws5; workspace $ws5
-bindsym $mod+Ctrl+6 move container to workspace $ws6; workspace $ws6
-bindsym $mod+Ctrl+7 move container to workspace $ws7; workspace $ws7
-bindsym $mod+Ctrl+8 move container to workspace $ws8; workspace $ws8
-bindsym $mod+Ctrl+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+Ctrl+1 move container to workspace number $ws1; workspace number $ws1
+bindsym $mod+Ctrl+2 move container to workspace number $ws2; workspace number $ws2
+bindsym $mod+Ctrl+3 move container to workspace number $ws3; workspace number $ws3
+bindsym $mod+Ctrl+4 move container to workspace number $ws4; workspace number $ws4
+bindsym $mod+Ctrl+5 move container to workspace number $ws5; workspace number $ws5
+bindsym $mod+Ctrl+6 move container to workspace number $ws6; workspace number $ws6
+bindsym $mod+Ctrl+7 move container to workspace number $ws7; workspace number $ws7
+bindsym $mod+Ctrl+8 move container to workspace number $ws8; workspace number $ws8
+bindsym $mod+Ctrl+9 move container to workspace number $ws9; workspace number $ws9
 
 # Move to workspace with focused container
-bindsym $mod+Ctrl+Mod2+KP_1 move container to workspace $ws1; workspace $ws1
-bindsym $mod+Ctrl+Mod2+KP_2 move container to workspace $ws2; workspace $ws2
-bindsym $mod+Ctrl+Mod2+KP_3 move container to workspace $ws3; workspace $ws3
-bindsym $mod+Ctrl+Mod2+KP_4 move container to workspace $ws4; workspace $ws4
-bindsym $mod+Ctrl+Mod2+KP_5 move container to workspace $ws5; workspace $ws5
-bindsym $mod+Ctrl+Mod2+KP_6 move container to workspace $ws6; workspace $ws6
-bindsym $mod+Ctrl+Mod2+KP_7 move container to workspace $ws7; workspace $ws7
-bindsym $mod+Ctrl+Mod2+KP_8 move container to workspace $ws8; workspace $ws8
-bindsym $mod+Ctrl+Mod2+KP_9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+Ctrl+Mod2+KP_1 move container to workspace number $ws1; workspace number $ws1
+bindsym $mod+Ctrl+Mod2+KP_2 move container to workspace number $ws2; workspace number $ws2
+bindsym $mod+Ctrl+Mod2+KP_3 move container to workspace number $ws3; workspace number $ws3
+bindsym $mod+Ctrl+Mod2+KP_4 move container to workspace number $ws4; workspace number $ws4
+bindsym $mod+Ctrl+Mod2+KP_5 move container to workspace number $ws5; workspace number $ws5
+bindsym $mod+Ctrl+Mod2+KP_6 move container to workspace number $ws6; workspace number $ws6
+bindsym $mod+Ctrl+Mod2+KP_7 move container to workspace number $ws7; workspace number $ws7
+bindsym $mod+Ctrl+Mod2+KP_8 move container to workspace number $ws8; workspace number $ws8
+bindsym $mod+Ctrl+Mod2+KP_9 move container to workspace number $ws9; workspace number $ws9
 
 #########################################################################################
 #
@@ -290,10 +296,9 @@ bindsym $mod+Ctrl+Mod2+KP_9 move container to workspace $ws9; workspace $ws9
 
 # Open applications on specific workspaces
 # assign [class="Thunderbird"] $ws1
-assign [class="Firefox"] $ws2
+assign [class="Firefox"] $ws9
 assign [class="Eclipse*"] $ws3
 assign [class="NetBeans*"] $ws3
-assign [class="Code"] $ws3
 assign [class="Atom"] $ws3
 # assign [class="Skype"] $ws5
 
@@ -445,7 +450,7 @@ bar {
 	bindsym button4 nop
 	bindsym button5 nop
         #font xft:Misc Fixed:SemiCondensed
-	strip_workspace_numbers yes
+	strip_workspace_numbers no
 
     colors {
         background $bg
