@@ -79,10 +79,21 @@ lsvn (){
 # |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
 #
 
+#Remove prompt command
 cleanprompt() {
     PS1="$COL1B\u $COL7 - $COL6B \w\n$COL1B>$COL2B "
     PROMPT_COMMAND=""
     echo "Good as new"
+}
+
+#Override cd (suppress path echo)
+function cd() {
+    if [ -z "$*" ]; then 
+        destination=~
+    else
+        destination=$*
+    fi
+    builtin cd "${destination}" >/dev/null && ls
 }
 
 #    _              _ _     _      
@@ -99,10 +110,9 @@ arole (){
     for var in "$@"; do
         for dir in tasks files vars; do
             mkdir -p "roles/$var/$dir"
-            if [ "$dir" != "vars" ]; then
-                touch roles/$var/$dir/main.yml
-            fi
         done
+        touch roles/$var/tasks/main.yml
+
     done
 }
 
@@ -166,13 +176,4 @@ notepad() {
 }
 #============== NOTEPAD END =================
 
-#Override cd (suppress path echo)
-function cd() {
-    if [ -z "$*" ]; then 
-        destination=~
-    else
-        destination=$*
-    fi
-    builtin cd "${destination}" >/dev/null && ls
-}
 
