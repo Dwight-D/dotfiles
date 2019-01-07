@@ -2,7 +2,7 @@
 # ~/.bashrc
 #
 
-source ~/dotfiles/aliases
+source ~/dotfiles/bash-extensions
 
 [[ $- != *i* ]] && return
 
@@ -144,7 +144,8 @@ export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:cd:history"
 HISTSIZE=500000
 HISTFILESIZE=100000
 
-
+#Better globbing
+shopt -s extglob
 
 ## BETTER DIRECTORY NAVIGATION ##
 
@@ -190,16 +191,6 @@ ex ()
   else
     echo "'$1' is not a valid file"
   fi
-}
-
-#Override cd (suppress path echo)
-function cd() {
-    if [ -z "$*" ]; then 
-        destination=~
-    else
-        destination=$*
-    fi
-    builtin cd "${destination}" >/dev/null && ls
 }
 
 # Import colorscheme from 'wal' asynchronously
