@@ -19,3 +19,5 @@ colordiff
 colorsvn
 bash-completion
 jq
+fzf
+z

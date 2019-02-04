@@ -1,18 +1,44 @@
 #!/bin/bash
 
+#    _    _ _                     
+#   / \  | (_) __ _ ___  ___  ___ 
+#  / _ \ | | |/ _` / __|/ _ \/ __|
+# / ___ \| | | (_| \__ \  __/\__ \
+#/_/   \_\_|_|\__,_|___/\___||___/
+#
+##################################
+
 #======PROGRAM REDIRECTS=====
-alias ssh='backpack'
+if [ -x "$(command -v backpack)" ]; then
+    alias ssh='backpack'
+fi
+
+if [ -x "$(command -v bat)" ]; then
+    alias less='bat'
+fi
+
+function ranger-cd {
+    tempfile="$(mktemp -t tmp.XXXXXX)"
+    ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+    test -f "$tempfile" &&
+    if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+        cd "$(cat "$tempfile")"
+    fi
+    rm -f -- "$tempfile"
+}
+alias sdiff='sdiff --diff-program=colordiff'
 
 #========NAVIGATION==========
 alias xfiles="cd /mnt/xfiles"
-alias nodc="cd ~/projects/nodc/nodc-modules"
+alias nodc="cd ~/projects/nodc-root/nodc-modules"
 
-#===========UTIL============
+#===========MISC============
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias tt='(urxvt &)'
-
+alias shrug='echo  ¯\\_\(ツ\)_/¯ | xclip -i -selection c'
+alias xmlf='xmllint --format -'
 
 #=======SHORTCUTS==========
 alias issh='initssh'
@@ -22,55 +48,16 @@ alias ll='ls -lh'
 alias rr='ranger'
 alias makeover='wal -i /home/max/shared/wallpaper/dual -a 75 --backend=colorz'
 alias rss='canto-curses'
-alias cgrep='grep --color=auto -C 5'
+alias cgrep='grep --color=auto -C 10'
 
 #========SVN============
 if [ -x "$(command -v colorsvn)" ]; then
     alias svn='colorsvn'
 fi
 
-asvn(){
-    echo "Adding the following files: "
-    lsvn ?
-    echo "Continue? y/n"
-    read ans
-    if [[ "$ans" = "y" || "$ans" = "Y" ]]; then
-        lsvn ? | sed 's/^/svn add /' | bash
-    else
-        echo "Chickened out"
-    fi
-}
-
-rsvn(){
-    echo "Removing the following files:
-"
-    lsvn ! 
-    echo Are you sure? yes/no
-    read ans
-    if [[ "$ans" = "y" || "$ans" = "Y" ]]; then
-        echo Deleting...
-        lsvn ! | sed 's/^/svn rm /' | bash
-    else
-        echo "Chickened out"
-    fi
-}
-
-lsvn (){
-    if [ "$#" -eq 0 ]; then
-        svn status
-    else
-        while [ ! -z "$1" ]; do
-            local arg="${1^^}"
-            if [ "$arg" = ? ]; then
-                arg="\?"
-            fi
-            svn status | grep -E "^$arg" | sed "s/$arg       //"
-            shift
-         done
-
-    fi
-}
-
+#=========GIT============
+alias glog='git log --decorate --graph --all --abbrev-commit'
+alias forest="git-forest --pretty=format:\"%C(red)%h %C(magenta)(%ar) %C(blue)%an %C(reset)%s\" --style=15 --reverse | less"
 
 #  _____                 _   _                 
 # |  ___|   _ _ __   ___| |_(_) ___  _ __  ___ 
@@ -94,7 +81,7 @@ function cd() {
     else
         destination=$*
     fi
-    builtin cd "${destination}" >/dev/null && ls
+    builtin cd "${destination}" >/dev/null && ls --color=auto
 }
 
 # # ex - archive extractor
@@ -206,4 +193,86 @@ notepad() {
     esac
 }
 
+# ____             _             
+#|  _ \  ___   ___| | _____ _ __ 
+#| | | |/ _ \ / __| |/ / _ \ '__|
+#| |_| | (_) | (__|   <  __/ |   
+#|____/ \___/ \___|_|\_\___|_|
+
+dr (){
+case $1 in
+    kill )
+        read -p "Kill all containers?" -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            docker kill $(docker ps -q)
+        fi
+        ;;
+    rm )
+        read -p "Remove all containers?" -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            docker container rm $(docker container ls -aq)
+        fi
+        ;;
+    nuke )
+        read -p "Stopping containers and removing ALL docker data. Continue?" -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            yes | dr kill
+            yes | dr rm
+            yes | docker system prune --volumes
+        fi
+        ;;
+esac
+}
+
+# ______     ___   _ 
+#/ ___\ \   / / \ | |
+#\___ \\ \ / /|  \| |
+# ___) |\ V / | |\  |
+#|____/  \_/  |_| \_|
+
+
+asvn(){
+    echo "Adding the following files: "
+    lsvn ?
+    echo "Continue? y/n"
+    read ans
+    if [[ "$ans" = "y" || "$ans" = "Y" ]]; then
+        lsvn ? | sed 's/^/svn add /' | bash
+    else
+        echo "Chickened out"
+    fi
+}
+
+rsvn(){
+    echo "Removing the following files:
+"
+    lsvn !
+    echo Are you sure? yes/no
+    read ans
+    if [[ "$ans" = "y" || "$ans" = "Y" ]]; then
+        echo Deleting...
+        lsvn ! | sed 's/^/svn rm /' | bash
+    else
+        echo "Chickened out"
+    fi
+}
+
+lsvn (){
+    if [ "$#" -eq 0 ]; then
+        svn status
+    else
+        while [ ! -z "$1" ]; do
+            local arg="${1^^}"
+            if [ "$arg" = ? ]; then
+                arg="\?"
+            fi
+            svn status | grep -E "^$arg" | sed "s/$arg       //"
+            shift
+         done
+
+    fi
+}
 

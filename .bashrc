@@ -2,7 +2,9 @@
 # ~/.bashrc
 #
 
-source ~/dotfiles/bash-extensions
+[[ -r "/home/max/dotfiles/bash-extensions" ]] && source ~/dotfiles/bash-extensions
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+eval "$(fasd --init auto)"
 
 [[ $- != *i* ]] && return
 
@@ -113,6 +115,9 @@ set -o noclobber
 shopt -s checkwinsize
 
 shopt -s expand_aliases
+
+#Enables recursive globbing, i.e. **/*.py
+shopt -s globstar
 
 # export QT_SELECT=4
 
