@@ -17,6 +17,10 @@ if [ -x "$(command -v bat)" ]; then
     alias less='bat'
 fi
 
+if [ -x "$(command -v colorsvn)" ]; then
+    alias svn='colorsvn'
+fi
+
 function ranger-cd {
     tempfile="$(mktemp -t tmp.XXXXXX)"
     ranger --choosedir="$tempfile" "${@:-$(pwd)}"
@@ -41,22 +45,17 @@ alias shrug='echo  ¯\\_\(ツ\)_/¯ | xclip -i -selection c'
 alias xmlf='xmllint --format -'
 
 #=======SHORTCUTS==========
-alias issh='initssh'
 alias fuck='sudo $(history -p !!)'
 alias la='ls -lah'
 alias ll='ls -lh'
 alias rr='ranger'
-alias makeover='wal -i /home/max/shared/wallpaper/dual -a 75 --backend=colorz'
 alias rss='canto-curses'
 alias cgrep='grep --color=auto -C 10'
 
 #========SVN============
-if [ -x "$(command -v colorsvn)" ]; then
-    alias svn='colorsvn'
-fi
 
 #=========GIT============
-alias glog='git log --decorate --graph --all --abbrev-commit'
+alias glog='git log --decorate --graph --all --abbrev-commit --name-only'
 alias forest="git-forest --pretty=format:\"%C(red)%h %C(magenta)(%ar) %C(blue)%an %C(reset)%s\" --style=15 --reverse | less"
 
 #  _____                 _   _                 

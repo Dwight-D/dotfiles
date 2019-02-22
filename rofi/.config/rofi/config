@@ -1,0 +1,5 @@
+# Dark theme.
+rofi.theme: ~/.cache/wal/colors-rofi-dark.rasi
+rofi.modi:  drun,ssh
+rofi.ssh-client: issh
+rofi.terminal: urxvt

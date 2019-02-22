@@ -3,7 +3,7 @@
 #
 
 [[ -r "/home/max/dotfiles/bash-extensions" ]] && source ~/dotfiles/bash-extensions
-[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+[[ -r "/usr/share/z/z.sh" ]] && export _Z_CMD=c && source /usr/share/z/z.sh && export _Z_CMD=c
 eval "$(fasd --init auto)"
 
 [[ $- != *i* ]] && return
@@ -162,8 +162,8 @@ shopt -s dirspell 2> /dev/null
 shopt -s cdspell 2> /dev/null
 
 #treats variable names as directory for cd
-shopt -s cdable_vars 2> /dev/null
-source /home/max/dotfiles/shortcuts
+#shopt -s cdable_vars 2> /dev/null
+#source /home/max/dotfiles/shortcuts
 
 # This defines where cd looks for targets
 # Add the directories you want to have fast access to, separated by colon

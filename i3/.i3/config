@@ -44,7 +44,7 @@ font $font
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
-exec --no-startup-id volumeicon
+#exec --no-startup-id volumeicon
 bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 #exec --no-startup-id pulseaudio
 #exec --no-startup-id pa-applet
@@ -89,7 +89,8 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Escape kill
 
 # start program launcher
-bindsym $mod+d exec --no-startup-id dmenu_recency -fn '$dfont'
+#bindsym $mod+d exec --no-startup-id dmenu_recency -fn '$dfont'
+bindsym $mod+Home exec --no-startup-id rofi -show drun
 
 # launch categorized menu
 bindsym $mod+z exec --no-startup-id morc_menu
@@ -348,8 +349,9 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id compton -b
 #exec --no-startup-id nitrogen --restore; sleep 1; compton -b
 #exec --no-startup-id manjaro-hello
-
-exec --no-startup-id wal -i /home/max/shared/wallpaper/dual -a 75 --backend=colorz --saturate 0.7
+exec --no-startup-id makeover
+exec --no-startup-id /home/max/.config/polybar/startup.sh
+#exec --no-startup-id wal -i /home/max/shared/wallpaper/dual -a 75 --backend=colorz --saturate 0.7
 #exec --no-startup-id wal -R
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
@@ -437,36 +439,36 @@ client.background       $bg
 #    				~~~~~~~~~~~~~~~~i3 BAR~~~~~~~~~~~~~~~~~~~
 #
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
-bar {
-	i3bar_command i3bar
-	status_command i3status
-	position bottom
-
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
-#	tray_output eDP1
-
-	bindsym button4 nop
-	bindsym button5 nop
-        #font xft:Misc Fixed:SemiCondensed
-	strip_workspace_numbers no
-
-    colors {
-        background $bg
-        statusline $fg
-        separator  $fg-alt
-
-#       	                border	backgr. text
-        #focused_workspace	#F9FAF9 #16a085 #292F34
-        focused_workspace	$fg-alt	$fg	    $bg
-        active_workspace   	$fg-alt $bg-alt $fg-alt
-	#active_workspace   	#595B5B #353836 #FDF6E3
-        #inactive_workspace 	#595B5B #222D31 #EEE8D5
-        inactive_workspace 	$col1	$bg 	$fg
-        binding_mode       	#16a085 #2C2C2C #F9FAF9
-        urgent_workspace   	#16a085 #FDF6E3 #E5201D
-    }
-}
+#bar {
+#	i3bar_command i3bar
+#	status_command i3status
+#	position bottom
+#
+### please set your primary output first. Example: 'xrandr --output eDP1 --primary'
+##	tray_output primary
+##	tray_output eDP1
+#
+#	bindsym button4 nop
+#	bindsym button5 nop
+#        #font xft:Misc Fixed:SemiCondensed
+#	strip_workspace_numbers no
+#
+#    colors {
+#        background $bg
+#        statusline $fg
+#        separator  $fg-alt
+#
+##       	                border	backgr. text
+#        #focused_workspace	#F9FAF9 #16a085 #292F34
+#        focused_workspace	$fg-alt	$fg	    $bg
+#        active_workspace   	$fg-alt $bg-alt $fg-alt
+#	#active_workspace   	#595B5B #353836 #FDF6E3
+#        #inactive_workspace 	#595B5B #222D31 #EEE8D5
+#        inactive_workspace 	$col1	$bg 	$fg
+#        binding_mode       	#16a085 #2C2C2C #F9FAF9
+#        urgent_workspace   	#16a085 #FDF6E3 #E5201D
+#    }
+#}
 
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
