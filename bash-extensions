@@ -20,6 +20,7 @@ fi
 if [ -x "$(command -v colorsvn)" ]; then
     alias svn='colorsvn'
 fi
+alias mvnw='./mvnw'
 
 function ranger-cd {
     tempfile="$(mktemp -t tmp.XXXXXX)"
@@ -55,7 +56,7 @@ alias cgrep='grep --color=auto -C 10'
 #========SVN============
 
 #=========GIT============
-alias glog='git log --decorate --graph --all --abbrev-commit --name-only'
+alias glog='git log --decorate --graph --all --abbrev-commit --name-only --no-merges'
 alias forest="git-forest --pretty=format:\"%C(red)%h %C(magenta)(%ar) %C(blue)%an %C(reset)%s\" --style=15 --reverse | less"
 
 #  _____                 _   _                 

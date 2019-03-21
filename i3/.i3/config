@@ -16,7 +16,7 @@ set $mod Mod4
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 #
 
-set $border_width 4
+set $border_width 2
 set $trm urxvt
 
 new_window pixel $border_width
@@ -69,10 +69,8 @@ bindsym $mod+y border pixel $border_width
 # Start Applications
 bindsym $mod+Ctrl+b exec $trm -e 'bmenu'
 bindsym $mod+F2 exec firefox
-bindsym $mod+F3 exec pcmanfm
-#bindsym $mod+r exec $trm -e ranger "`xcwd`"
-bindsym $mod+p exec pcmanfm "`xcwd`"
-bindsym $mod+Shift+p exec xcwd | tr -d '\n' | xclip -selection c
+bindsym $mod+F3 exec nautilus $(xcwd)
+bindsym $mod+p exec xcwd | tr -d '\n' | xclip -selection c
 bindsym $mod+c exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+c exec --no-startup-id compton -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
@@ -91,6 +89,7 @@ bindsym $mod+Escape kill
 # start program launcher
 #bindsym $mod+d exec --no-startup-id dmenu_recency -fn '$dfont'
 bindsym $mod+Home exec --no-startup-id rofi -show drun
+bindsym $mod+d exec --no-startup-id rofi -show drun
 
 # launch categorized menu
 bindsym $mod+z exec --no-startup-id morc_menu

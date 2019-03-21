@@ -25,6 +25,8 @@ primary = ${xrdb:color1:#222}
 secondary = ${xrdb:color2:#222}
 alert = ${xrdb:color3:#222}
 
+[settings]
+
 [bar/main]
 monitor = ${env:MONITOR:VGA-1}
 width = 100%
@@ -40,7 +42,7 @@ foreground = ${colors.foreground}
 line-size = 3
 line-color = #f00
 
-border-size = 13
+border-size = 14
 border-bottom-size = 0
 border-top-size = 0
 border-color = #00000000
@@ -221,10 +223,9 @@ format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = D: %downspeed% U: %upspeed%
 
-format-disconnected = !NTWRK DWN!
-;format-disconnected = <label-disconnected>
+format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
+label-disconnected = ETH DOWN
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
 [module/date]
@@ -303,11 +304,11 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 type = internal/battery
 battery = BAT0
 adapter = ADP1
-full-at = 99
+full-at = 100
 
 format-charging = <label-charging>
 format-charging-underline = 
-label-charging = CHARGE
+label-charging = CHRGNG: %percentage%
 
 format-discharging = <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}

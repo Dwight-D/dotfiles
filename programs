@@ -21,3 +21,5 @@ bash-completion
 jq
 fzf
 z
+stow
+pass

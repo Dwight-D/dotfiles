@@ -204,5 +204,5 @@ ex ()
 (cat ~/.cache/wal/sequences &)
 
 #keychain + ssh-agent
-eval $(keychain --eval --quiet --agents ssh id_rsa)>/dev/null
+eval $(keychain --eval --quiet --agents ssh id_rsa github.rsa tieto_git.rsa)>/dev/null
 
