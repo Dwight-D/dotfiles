@@ -11,11 +11,11 @@ Xft.lcdfilter: lcddefault
 Xcursor.theme: xcursor-breeze
 Xcursor.size:                     0
 
-*.font:                       xft:Terminus:Regular:size=13
+*.font:                       xft:xos4 Terminus:Regular:size=13
 
 !*.font:                       9x15
 !*.boldFont:                   9x15bold
-*.boldFont:                   xft:Terminus:Bold:size=13
+*.boldFont:                   xft:xos4 Terminus:Bold:size=13
 XTerm*faceName:               xft:Misc Fixed:SemiCondensed:size=12
 XTerm*selectToClipboard:true
   

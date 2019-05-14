@@ -13,10 +13,6 @@ if [ -x "$(command -v backpack)" ]; then
     alias ssh='backpack'
 fi
 
-if [ -x "$(command -v bat)" ]; then
-    alias less='bat'
-fi
-
 if [ -x "$(command -v colorsvn)" ]; then
     alias svn='colorsvn'
 fi
@@ -35,7 +31,6 @@ alias sdiff='sdiff --diff-program=colordiff'
 
 #========NAVIGATION==========
 alias xfiles="cd /mnt/xfiles"
-alias nodc="cd ~/projects/nodc-root/nodc-modules"
 
 #===========MISC============
 alias cp="cp -i"                          # confirm before overwriting something
@@ -52,11 +47,10 @@ alias ll='ls -lh'
 alias rr='ranger'
 alias rss='canto-curses'
 alias cgrep='grep --color=auto -C 10'
-
-#========SVN============
+alias lps='ps -eF | less'
 
 #=========GIT============
-alias glog='git log --decorate --graph --all --abbrev-commit --name-only --no-merges'
+alias glog='git log --decorate --graph --all --abbrev-commit --name-only'
 alias forest="git-forest --pretty=format:\"%C(red)%h %C(magenta)(%ar) %C(blue)%an %C(reset)%s\" --style=15 --reverse | less"
 
 #  _____                 _   _                 
@@ -168,7 +162,7 @@ notepad() {
         show )
             ;&
         read )
-            tail -f $note
+            cat $note
             ;;
         burn )
             truncate -s 0 $note

@@ -3,8 +3,8 @@
 #
 
 [[ -r "/home/max/dotfiles/bash-extensions" ]] && source ~/dotfiles/bash-extensions
-[[ -r "/usr/share/z/z.sh" ]] && export _Z_CMD=c && source /usr/share/z/z.sh && export _Z_CMD=c
-eval "$(fasd --init auto)"
+#[[ -r "/usr/share/z/z.sh" ]] && export _Z_CMD=c && source /usr/share/z/z.sh && export _Z_CMD=c
+#eval "$(fasd --init auto)"
 
 [[ $- != *i* ]] && return
 

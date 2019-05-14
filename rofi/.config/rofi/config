@@ -3,5 +3,5 @@ rofi.theme: ~/.cache/wal/colors-rofi-dark.rasi
 rofi.modi:  drun,ssh
 rofi.ssh-client: issh
 rofi.terminal: urxvt
-rofi.font:                    Terminus 17
+rofi.font:                    xos4 Terminus 17
 rofi.width:                    30
